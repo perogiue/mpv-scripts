@@ -1,7 +1,7 @@
 --- ___Usage___:
 --- toggle-copy-subs: Automatically copy subtitles to clipboard as they appear. Works on mac 10.13
 ---                    input.conf example:
----                     * script-message-to subs-to-clipboard toggle-subs-to-clipboard
+---                     * script-message-to subs_to_clipboard toggle-subs-to-clipboard
 
 _G.autocopysubs = false
 
