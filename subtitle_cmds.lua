@@ -2,11 +2,13 @@
 --- ab-loop-sub [autopause]: Set ab-loop to current subtitle. Specify 'autopause' arg to pause before every loop
 --- copy-subtitle:           Copy current subtitle to clipboard. Works on mac 10.13
 --- replay-subtitle:         Replay current or previous subtitle.
+--- step-subtitle:           End current subtitle or start next subtitle.
 ---
 --- input.conf examples:
 ---  KP5 script-message-to subtitle_cmds replay-subtitle
----  KP2 script-message-to subtitle_cmds copy-subtitle
+---  KP3 script-message-to subtitle_cmds step-subtitle
 ---  KP0 script-message-to subtitle_cmds ab-loop-sub jump
+---  KP2 script-message-to subtitle_cmds copy-subtitle
 
 _G.abloopavoidjankpause = false
 
@@ -80,6 +82,19 @@ function replay_subtitle()
     end
 end
 
+function step_subtitle()
+    local subend = mp.get_property("sub-end")
+    local timestamp
+    
+    if subend then
+        local suboffset = mp.get_property("sub-delay")
+        mp.set_property_number("time-pos", subend + suboffset)
+    else
+        mp.commandv("sub-seek", 1)
+    end
+end
+
 mp.add_key_binding(nil, "ab-loop-sub", ab_loop_sub)
 mp.add_key_binding(nil, "copy-subtitle", copy_subtitle)
 mp.add_key_binding(nil, "replay-subtitle", replay_subtitle)
+mp.add_key_binding(nil, "step-subtitle", step_subtitle)
