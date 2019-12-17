@@ -14,6 +14,8 @@ _G.startpadding = 0.1 -- seconds
 _G.endpadding = 0.1 -- seconds
 _G.noskipthresh = _G.startpadding + _G.endpadding + 0.1
 
+_G.abloopavoidjankpause = false
+
 function to_seconds(timestamp)
     local hour, min, sec, msec = timestamp:match("(%d%d):(%d%d):(%d%d),(%d%d%d)")
     return hour * 3600 + min * 60 + sec + msec / 1000
@@ -70,17 +72,23 @@ function reset_seeking_state()
 end
 
 function stop_dialogue_only_mode()
+    if _G.abloopavoidjankpause == true then
+        _G.abloopavoidjankpause = false
+        return
+    end
     if not _G.seeking then
         mp.osd_message("End dialogue-only mode", 1)
 
         _G.subidx = 1
         mp.unobserve_property(seek_on_sub_end)
         mp.unregister_event(stop_dialogue_only_mode)
+        mp.unobserve_property(stop_dialogue_only_mode)
+
         _G.dialogueonlymode = false
     end
 end
 
-function toggle_dialogue_only_mode()
+function toggle_dialogue_only_mode(unused1, unused2)
     if _G.dialogueonlymode then
         stop_dialogue_only_mode()
         return
@@ -94,6 +102,11 @@ function toggle_dialogue_only_mode()
     mp.osd_message("Dialogue-only mode", 9999)
     mp.observe_property("sub-text", "string", seek_on_sub_end)
     mp.register_event("seek", stop_dialogue_only_mode)
+
+    mp.set_property("ab-loop-a", "no")
+    mp.set_property("ab-loop-b", "no")
+    _G.abloopavoidjankpause = true
+    mp.observe_property("ab-loop-b", number, stop_dialogue_only_mode)
 
     _G.dialogueonlymode = true
 end
