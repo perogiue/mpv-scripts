@@ -7,7 +7,7 @@
 --- input.conf examples:
 ---  KP5 script-message-to subtitle_cmds replay-subtitle
 ---  KP3 script-message-to subtitle_cmds step-subtitle
----  KP0 script-message-to subtitle_cmds ab-loop-sub jump
+---  KP0 script-message-to subtitle_cmds ab-loop-sub pause
 ---  KP2 script-message-to subtitle_cmds copy-subtitle
 
 _G.abloopavoidjankpause = false
