@@ -3,12 +3,6 @@
 --- copy-subtitle:           Copy current subtitle to clipboard. Works on mac 10.13 and windows 10
 --- replay-subtitle:         Replay current or previous subtitle.
 --- step-subtitle:           End current subtitle or start next subtitle.
----
---- input.conf examples:
----  KP5 script-message-to subtitle_cmds replay-subtitle
----  KP3 script-message-to subtitle_cmds step-subtitle
----  KP0 script-message-to subtitle_cmds ab-loop-sub pause
----  KP2 script-message-to subtitle_cmds copy-subtitle
 
 _G.abloopavoidjankpause = false
 

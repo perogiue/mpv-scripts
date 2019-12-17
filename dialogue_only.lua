@@ -1,9 +1,7 @@
 --- ___Usage___:
 --- toggle-dialogue-only-mode: Auto-seek to only play subtitled dialogue.
----                             External subs required.
+---                             External srt subs required.
 ---                             Fiddling with sub delay while toggled on desyncs subidx.
----                             input.conf example:
----                              / script-message-to dialogue_only toggle-dialogue-only-mode
 
 _G.dialogueonlymode = false
 _G.subsvidpath = false
