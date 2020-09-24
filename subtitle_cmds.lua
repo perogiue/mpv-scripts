@@ -23,14 +23,19 @@ if _G.platform == 'windows' then
 end
 --- end platform detection code
 
+function round(num, numdecimalplaces)
+  local mult = 10^(numdecimalplaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
 function pause_on_sub_loop(prop, value)
     if _G.abloopavoidjankpause == true then
         _G.abloopavoidjankpause = false
         return
     end
     if value and value ~= '' then
-        local startloop = mp.get_property("ab-loop-a")
-        local substart = mp.get_property("sub-start")
+        local startloop = round(mp.get_property("ab-loop-a"), 1)
+        local substart = round(mp.get_property("sub-start") + mp.get_property("sub-delay"), 1)
         if substart and startloop and substart == startloop then
             mp.set_property("pause", "yes")
         end
