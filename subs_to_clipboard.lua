@@ -41,6 +41,8 @@ function copy_sub(prop, subtext)
                     [System.Windows.Clipboard]::SetText('%s')
                 }]], escapedtext)
             } })
+        elseif _G.platform == 'linux' then
+            os.execute("echo '" .. escape(subtext) .. "' | xclip -selection clipboard -i")
         end
     end
 end

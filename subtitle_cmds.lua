@@ -94,6 +94,8 @@ function copy_subtitle()
                     [System.Windows.Clipboard]::SetText('%s')
                 }]], escapedtext)
             } })
+        elseif _G.platform == 'linux' then
+            os.execute("echo '" .. escape(subtext) .. "' | xclip -selection clipboard -i")
         end
         mp.osd_message(subtext, 0.5)
     else
